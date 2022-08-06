@@ -12,6 +12,9 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -29,10 +32,5 @@ internal class Program
 
         app.Run();
     }
-        public void ConfigureServices(IServiceCollection services, object connectionString)
-        {
-            var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-        }
 
 }
