@@ -1,5 +1,6 @@
 using ElevenNote.Data;
 using Microsoft.EntityFrameworkCore;
+using ElevenNote.Services.User;
 internal class Program
 {
     private static void Main(string[] args)
@@ -14,6 +15,7 @@ internal class Program
 
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddScoped<IUserService, UserService>();
 
         var app = builder.Build();
 
