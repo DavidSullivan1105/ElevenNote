@@ -1,3 +1,5 @@
+using ElevenNote.Data;
+using Microsoft.EntityFrameworkCore;
 internal class Program
 {
     private static void Main(string[] args)
@@ -27,9 +29,10 @@ internal class Program
 
         app.Run();
     }
+        public void ConfigureServices(IServiceCollection services, object connectionString)
+        {
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+        }
 
-    public void ConfigureServices(IServiceCollection services)
-    {
-        var connectionString = Configuration.GetConnectionString("DefaultConnection");
-    }
 }
